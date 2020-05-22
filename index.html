@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.core.min.js"></script>
+    <title>Document</title>
+
+    <style>
+
+body{
+    background-image: linear-gradient(to top left, black, grey);
+}
+        img {
+            width: 1000px;
+            height:100px;
+            border-radius: 6px;
+            opacity: 1.0;
+             /* clip-path: url(#svgPath1); */
+        }
+
+        .col_fader {
+            /* background-image: url(img/bg/crowd-0.png); */
+            position: relative;
+            border: 12px solid rgba(75, 21, 84, 0.7); 
+            border-radius: 18px;
+            opacity: 0.6;
+           
+        }
+
+        .col_fader::before {
+            position:absolute;
+            content: "";
+            z-index: -1;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 2px;
+            border: 12px solid rgba(144, 138, 145, 0.3);
+            border-radius: 12px;
+            /* content: url(img/crowd-0.jpg);
+            filter:alpha(opacity=50);
+            filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.5);
+            opacity:.50;  */
+        }
+        
+
+
+
+        .svgPath {
+            opacity: 1.0;
+        }
+
+        #img1 {
+            /* height:100px; */
+            clip-path: url(#svgPath1);
+        }
+        #img2 {
+            clip-path: url(#svgPath2);
+        }
+        #img3 {
+            clip-path: url(#svgPath3);
+        }
+        #img4 {
+            clip-path: url(#svgPath4);
+        }
+        #img5 {
+            clip-path: url(#svgPath5);
+        }
+        #img6 {
+            clip-path: url(#svgPath6);
+        }
+
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 col_fader mb-2">
+                <div class="mb-2  pt-2 img_holder" id="div1">
+                    <img src="img/crowd-0.jpg" alt="" id="img1">
+                    
+                </div>
+            </div>
+    <!-- </div>
+        <div class="row">     -->
+            <div class="col-12 col_fader mb-2">
+                <div class=" mb-2  pt-2 img_holder" id="div2">
+                    <img src="img/crowd-1.jpg" alt="" id="img2">
+                </div>
+                
+            </div>
+        <!-- </div> -->
+            <div class="col-12 col_fader mb-2">
+                <div class="mb-2  pt-2  img_holder" id="div3">
+                    <img src="img/crowd-2.jpg" alt="" id="img3">
+                </div>
+                
+            </div>
+            <div class="col-12 col_fader mb-2">
+                <div class="mb-2 pt-2  img_holder" id="div4 ">
+                    <img src="img/crowd-3.jpg" alt="" id="img4">
+                </div>
+                
+            </div>
+            <div class="col-12 col_fader mb-2">
+                <div class="mb-2 pt-2 img_holder" id="div5 ">
+                    <img src="img/crowd-4.jpg" alt="" id="img5">
+                </div>
+                
+            </div>
+            <div class="col-12 col_fader mb-2">
+                <div class=" mb-2 pt-2  img_holder" id="div6 ">
+                    <img src="img/crowd-5.jpg" alt="" id="img6">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <!-- <svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+   </svg> -->
+
+
+
+<svg height="0" width="0">
+    <defs>
+        <clipPath id="svgPath1" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+        <clipPath id="svgPath2" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+        <clipPath id="svgPath3" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+        <clipPath id="svgPath4" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+        <clipPath id="svgPath5" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+        <clipPath id="svgPath6" class="svgPath">
+            <rect width="1000" height="100" fill: #00cc00"/>
+        </clipPath>
+    </defs>
+</svg>
+
+
+    <script src="FaderBlock.js"></script>
+
+    <script>
+        window.onload = function(){
+
+
+            const imgTargets = [].slice.call(document.querySelectorAll('img'));
+            const divTargets = [].slice.call(document.querySelectorAll('.col_fader'));
+            const svgTargets = [].slice.call(document.querySelectorAll('.svgPath'));
+            const faderBlocks = Array.from({ length: imgTargets.length });
+            const sounds = Array.from({ length: imgTargets.length });
+            const startWidth = 10;
+            console.log(window.innerWidth);
+
+            sounds.forEach((sound, i) => sounds[i] = new Howl({ src: `snds/${i}.mp3`, html5: false, volume:0, loop: true}))
+
+            faderBlocks.forEach((fader,i) =>{
+                console.log(svgTargets[i]);
+                let leftPos = Math.floor(offset(imgTargets[i]).left);
+                console.log(leftPos);
+                faderBlocks[i] = new FaderBlock(i, imgTargets[i], svgTargets[i], divTargets[i], sounds[i], startWidth, leftPos);
+                faderBlocks[i].init();
+            })
+        }
+
+        function offset(el) {
+            var rect = el.getBoundingClientRect(),
+            scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+            scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+        }
+
+    </script>
+
+
+
+</body>
+</html>
