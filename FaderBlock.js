@@ -18,6 +18,7 @@ class FaderBlock {
         this.nevermind = 0;
         this.targetX = 10;
         this.incVal = 1;
+        this.sndIncVal = .001;
         
     }
 
@@ -96,7 +97,7 @@ class FaderBlock {
                 this.width += this.incVal;
             }
             if(this.currentVol < 1.0){
-                this.newVol+= .008;
+                this.newVol+= this.sndIncVal;
             } 
          }
 
@@ -106,7 +107,7 @@ class FaderBlock {
             this.width -= this.incVal;
             }   
             if(this.currentVol > 0.0){
-                this.newVol-= .008;
+                this.newVol-= this.sndIncVal;
             }          
         }
 

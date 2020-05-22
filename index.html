@@ -26,6 +26,7 @@ body{
             border: 12px solid rgba(75, 21, 84, 0.7); 
             border-radius: 18px;
             opacity: 0.6;
+            /* filter: blur(2px); */
            
         }
 
@@ -168,7 +169,7 @@ body{
             const startWidth = 10;
             console.log(window.innerWidth);
 
-            sounds.forEach((sound, i) => sounds[i] = new Howl({ src: `snds/${i}.mp3`, html5: false, volume:0, loop: true}))
+            sounds.forEach((sound, i) => sounds[i] = new Howl({ src: `snds/solostice-snds/${i}.mp3`, html5: false, volume:0, loop: true}))
 
             faderBlocks.forEach((fader,i) =>{
                 console.log(svgTargets[i]);
